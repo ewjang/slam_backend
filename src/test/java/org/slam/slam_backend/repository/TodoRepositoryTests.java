@@ -51,7 +51,6 @@ public class TodoRepositoryTests {
     @Test
     public void testUpdate() {
         Long tno = 1L;
-
         Optional<Todo> result =  todoRepository.findById(tno);
         Todo todo = result.orElseThrow();
 
@@ -59,7 +58,6 @@ public class TodoRepositoryTests {
         todo.changeContent("update Content");
         todo.changeComplete(true);
         todoRepository.save(todo);
-
         //먼저 로딩하고 엔티티 객체를 변경 /setter
     }
 
@@ -71,6 +69,12 @@ public class TodoRepositoryTests {
         Page<Todo> result = todoRepository.findAll(pageable);
         log.info("AA : " + result.getTotalElements());
         log.info("AA : " + result.getContent());
+    }
+
+    @Test
+    public void testSearch1() {
+
+        todoRepository.search1();
 
     }
 }

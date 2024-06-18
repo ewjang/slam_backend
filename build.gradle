@@ -1,6 +1,8 @@
-
-
-
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
 
 plugins {
     id 'java'
@@ -48,8 +50,19 @@ dependencies {
     implementation group: 'com.oracle.database.security', name: 'osdt_core', version: '19.17.0.0'
     implementation group: 'com.oracle.database.security', name: 'oraclepki', version: '21.6.0.0'
     implementation group: 'org.javassist', name: 'javassist', version: '3.18.1-GA'
+
+    //dsl
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+
+    annotationProcessor(
+            "jakarta.persistence:jakarta.persistence-api",
+            "jakarta.annotation:jakarta.annotation-api",
+            "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta"
+    )
 }
 
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+compileJava.dependsOn('clean')
