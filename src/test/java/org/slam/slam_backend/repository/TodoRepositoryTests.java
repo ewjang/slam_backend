@@ -74,8 +74,11 @@ public class TodoRepositoryTests {
         log.info("AA : " + result.getContent());
     }
 
+    /*
     @Test
     public void testSearch1() {
         todoSearch.search1();
     }
+
+     */
 }

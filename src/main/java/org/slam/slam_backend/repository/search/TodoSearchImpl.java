@@ -1,14 +1,17 @@
 package org.slam.slam_backend.repository.search;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
+import com.querydsl.jpa.JPQLQuery;
+import org.slam.slam_backend.dto.PageRequestDTO;
+import org.slam.slam_backend.entity.QTodo;
 import org.slam.slam_backend.entity.Todo;
 
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.*;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
-@Slf4j
-@Service
-public class TodoSearchImpl implements TodoSearch {
+@Log4j2
+public class TodoSearchImpl extends QuerydslRepositorySupport implements TodoSearch {
 
     //@Autowired
     //private TodoRepository todoRepositoryl;
@@ -16,18 +19,26 @@ public class TodoSearchImpl implements TodoSearch {
     //@Autowired
     //private DSLContext dsl;
 
-
     public TodoSearchImpl() {
-        //super(Todo.class);
+        super(Todo.class);
     }
-
     @Override
-    public java.util.List<Todo> search1() {
-        log.info("search1 =======================================");
-        //Todos todos = new Todos();
+    public Page<Todo> search1(PageRequestDTO pageRequestDTO) {
 
-        //return dsl.selectFrom("tbl_Todo").where(todos.TNO.eq(2L)).fetchInto(Todo.class);
-        return null;
+        log.info("search1............");
+        log.info(pageRequestDTO);
+
+        QTodo todo = QTodo.todo;
+
+        JPQLQuery<Todo> query = from(todo);
+
+        //query.where(todo.title.contains("1"));
+
+        Pageable pageable = PageRequest.of(pageRequestDTO.getPage() -1, pageRequestDTO.getSize(), Sort.by("tno").descending());
+
+        this.getQuerydsl().applyPagination(pageable, query);
+
+        return new PageImpl<>(query.fetch(), pageable, query.fetchCount());
     }
 
 }

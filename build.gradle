@@ -60,6 +60,13 @@ dependencies {
     implementation group: 'org.javassist', name: 'javassist', version: '3.18.1-GA'
 
     //dsl
+    implementation 'org.modelmapper:modelmapper:3.1.1'
+    //implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+    annotationProcessor(
+            "jakarta.persistence:jakarta.persistence-api",
+            "jakarta.annotation:jakarta.annotation-api",
+            "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
     /*
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
 
@@ -73,8 +80,19 @@ dependencies {
     //implementation 'org.springframework.boot:spring-boot-starter-jooq'
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', 'build/generated']
+        }
+    }
+}
+
 tasks.named('test') {
     useJUnitPlatform()
+}
+compileJava {
+    options.annotationProcessorPath = configurations.annotationProcessor
 }
 
 compileJava.dependsOn('clean')
