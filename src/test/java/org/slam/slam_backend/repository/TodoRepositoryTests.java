@@ -6,6 +6,7 @@ import oracle.jdbc.logging.annotations.Log;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slam.slam_backend.entity.Todo;
+import org.slam.slam_backend.repository.search.TodoSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,9 @@ public class TodoRepositoryTests {
 
     @Autowired
     private TodoRepository todoRepository;
+
+    @Autowired
+    private TodoSearch todoSearch;
 
     @Test
     public void test1() {
@@ -40,7 +44,7 @@ public class TodoRepositoryTests {
 
     @Test
     public void testRead() {
-        Long tno = 1L;
+        Long tno = 2L;
 
         Optional<Todo> result =  todoRepository.findById(tno);
         Todo todo = result.orElseThrow();
@@ -50,7 +54,7 @@ public class TodoRepositoryTests {
 
     @Test
     public void testUpdate() {
-        Long tno = 1L;
+        Long tno = 2L;
         Optional<Todo> result =  todoRepository.findById(tno);
         Todo todo = result.orElseThrow();
 
@@ -60,7 +64,6 @@ public class TodoRepositoryTests {
         todoRepository.save(todo);
         //먼저 로딩하고 엔티티 객체를 변경 /setter
     }
-
 
     @Test
     public void testPaging() {
@@ -73,8 +76,6 @@ public class TodoRepositoryTests {
 
     @Test
     public void testSearch1() {
-
-        todoRepository.search1();
-
+        todoSearch.search1();
     }
 }

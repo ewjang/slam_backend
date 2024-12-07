@@ -1,40 +1,32 @@
 package org.slam.slam_backend.repository.search;
 
-import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.slf4j.Slf4j;
-import org.slam.slam_backend.entity.QTodo;
-import org.slam.slam_backend.entity.Todo;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import org.slam.slam_backend.entity.Todo;
+
+import org.springframework.stereotype.Service;
 
 @Slf4j
-public class TodoSearchImpl extends QuerydslRepositorySupport implements TodoSearch {
+@Service
+public class TodoSearchImpl implements TodoSearch {
+
+    //@Autowired
+    //private TodoRepository todoRepositoryl;
+
+    //@Autowired
+    //private DSLContext dsl;
+
 
     public TodoSearchImpl() {
-        super(Todo.class);
+        //super(Todo.class);
     }
 
     @Override
-    public Page<Todo> search1() {
+    public java.util.List<Todo> search1() {
         log.info("search1 =======================================");
+        //Todos todos = new Todos();
 
-        QTodo todo = QTodo.todo;
-
-        JPQLQuery<Todo> query = from(todo);
-
-        query.where(todo.title.contains("1"));
-
-        Pageable pageable = PageRequest.of(1,10, Sort.by("tno").descending());
-
-        this.getQuerydsl().applyPagination(pageable, query);
-
-        query.fetch(); //목록 데이터 불러올 때 사용
-        query.fetchCount();
-
+        //return dsl.selectFrom("tbl_Todo").where(todos.TNO.eq(2L)).fetchInto(Todo.class);
         return null;
     }
 
