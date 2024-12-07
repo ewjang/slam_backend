@@ -8,6 +8,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.3'
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'nu.studer.jooq' version '7.1'
 }
 
 group = 'org.slam'
@@ -28,7 +29,14 @@ repositories {
 }
 
 dependencies {
+
     implementation 'org.springframework.boot:spring-boot-starter'
+    //implementation("org.jooq:jooq")
+    //jooq
+    //implementation 'org.springframework.boot:spring-boot-starter-jooq'
+    //runtimeOnly 'org.jooq:jooq-codegen:3.18.0'
+
+
     compileOnly 'org.projectlombok:lombok'
     //테스트용 추가
     testCompileOnly 'org.projectlombok:lombok'
@@ -52,6 +60,7 @@ dependencies {
     implementation group: 'org.javassist', name: 'javassist', version: '3.18.1-GA'
 
     //dsl
+    /*
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
 
     annotationProcessor(
@@ -59,6 +68,9 @@ dependencies {
             "jakarta.annotation:jakarta.annotation-api",
             "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta"
     )
+    */
+
+    //implementation 'org.springframework.boot:spring-boot-starter-jooq'
 }
 
 tasks.named('test') {
