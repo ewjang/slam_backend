@@ -24,13 +24,18 @@ public class TodoServiceTests {
 
     @Test
     public void testRegister() {
-        TodoDTO todoDTO = TodoDTO.builder()
-                .title("Title ... ")
-                .content("Content ...")
-                .dueDate(LocalDate.of(2024,12,07))
-                .build();
 
-        log.info(todoService.register(todoDTO));
+        for(int i = 1 ; i < 200 ; i++) {
+            TodoDTO todoDTO = TodoDTO.builder()
+                    .title("Title ... " + i)
+                    .content("Content ..." + i )
+                    .dueDate(LocalDate.of(2024,12,07))
+                    .build();
+
+            log.info(todoService.register(todoDTO));
+        }
+
+
     }
 
 
