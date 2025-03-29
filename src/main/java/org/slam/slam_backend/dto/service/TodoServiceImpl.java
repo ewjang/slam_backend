@@ -5,10 +5,9 @@ import lombok.extern.log4j.Log4j2;
 import org.slam.slam_backend.dto.PageRequestDTO;
 import org.slam.slam_backend.dto.PageResponseDTO;
 import org.slam.slam_backend.dto.TodoDTO;
-import org.slam.slam_backend.entity.Todo;
+import org.slam.slam_backend.domain.Todo;
 import org.slam.slam_backend.repository.TodoRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

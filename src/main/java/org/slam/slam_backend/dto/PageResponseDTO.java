@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Data
-public class PageResponseDTO<E> {
+public class  PageResponseDTO<E> {
 
     private List<E> dtoList; //DTO 목록 데이터
 

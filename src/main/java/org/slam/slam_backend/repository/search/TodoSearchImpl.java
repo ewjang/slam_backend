@@ -4,8 +4,8 @@ import lombok.extern.log4j.Log4j2;
 
 import com.querydsl.jpa.JPQLQuery;
 import org.slam.slam_backend.dto.PageRequestDTO;
-import org.slam.slam_backend.entity.QTodo;
-import org.slam.slam_backend.entity.Todo;
+import org.slam.slam_backend.domain.QTodo;
+import org.slam.slam_backend.domain.Todo;
 
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;

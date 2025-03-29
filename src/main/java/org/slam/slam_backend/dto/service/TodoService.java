@@ -3,7 +3,7 @@ package org.slam.slam_backend.dto.service;
 import org.slam.slam_backend.dto.PageRequestDTO;
 import org.slam.slam_backend.dto.PageResponseDTO;
 import org.slam.slam_backend.dto.TodoDTO;
-import org.slam.slam_backend.entity.Todo;
+import org.slam.slam_backend.domain.Todo;
 
 public interface TodoService {
 

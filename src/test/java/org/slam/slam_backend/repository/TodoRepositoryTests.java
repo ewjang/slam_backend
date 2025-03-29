@@ -2,10 +2,9 @@ package org.slam.slam_backend.repository;
 
 
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.logging.annotations.Log;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.slam.slam_backend.entity.Todo;
+import org.slam.slam_backend.domain.Todo;
 import org.slam.slam_backend.repository.search.TodoSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

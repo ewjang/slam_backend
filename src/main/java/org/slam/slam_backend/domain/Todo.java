@@ -1,4 +1,4 @@
-package org.slam.slam_backend.entity;
+package org.slam.slam_backend.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
