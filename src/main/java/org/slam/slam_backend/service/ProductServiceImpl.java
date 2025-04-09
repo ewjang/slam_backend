@@ -14,13 +14,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
-
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
@@ -28,27 +30,48 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public PageResponseDTO<ProductDTO> getList(PageRequestDTO pageRequestDTO) {
 
-        Pageable pageable = PageRequest.of(pageRequestDTO.getPage()-1, pageRequestDTO.getSize(), Sort.by("pno").descending());
+        log.info("getList..............");
 
-        Page<Object[]> result= productRepository.selectList(pageable);
+        Pageable pageable = PageRequest.of(
+                pageRequestDTO.getPage() - 1,  //페이지 시작 번호가 0부터 시작하므로
+                pageRequestDTO.getSize(),
+                Sort.by("pno").descending());
 
-        List<ProductDTO> dtoList = result.get().map(arr-> {
-            ProductDTO productDTO = null;
 
-            Product product = (Product)arr[0];
+        Page<Object[]>  result = null;
+
+        if(pageRequestDTO.getKeyword() == null){
+            result = productRepository.selectList(pageable);
+        }else {
+            result = productRepository.selectList(pageRequestDTO.getKeyword(), pageable);
+        }
+
+
+        List<ProductDTO> dtoList = result.get().map(arr -> {
+
+            Product product = (Product) arr[0];
             ProductImage productImage = (ProductImage) arr[1];
 
-            productDTO = ProductDTO.builder().pno(product.getPno()).pname(product.getPname()).pdesc(product.getPdesc()).price(product.getPrice()).build();
+            ProductDTO productDTO = ProductDTO.builder()
+                    .pno(product.getPno())
+                    .pname(product.getPname())
+                    .pdesc(product.getPdesc())
+                    .price(product.getPrice())
+                    .build();
 
             String imageStr = productImage.getFileName();
-            productDTO.setUplaodFileNames(List.of(imageStr));
+            productDTO.setUploadFileNames(List.of(imageStr));
 
             return productDTO;
         }).collect(Collectors.toList());
 
         long totalCount = result.getTotalElements();
 
-        return PageResponseDTO.<ProductDTO>withAll().dtoList(dtoList).pageRequestDTO(pageRequestDTO).build();
+        return PageResponseDTO.<ProductDTO>withAll()
+                .dtoList(dtoList)
+                .total(totalCount)
+                .pageRequestDTO(pageRequestDTO)
+                .build();
     }
 
     @Override
@@ -86,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
         product.changeDel(productDTO.isDelFlag());
 
         //이미지 처리
-        List<String> uploadFileNames = productDTO.getUplaodFileNames();
+        List<String> uploadFileNames = productDTO.getUploadFileNames();
 
         product.clearList();
 
@@ -126,7 +149,7 @@ public class ProductServiceImpl implements ProductService {
         List<String> fileNameList = imageList.stream().map(productImage ->
                 productImage.getFileName()).toList();
 
-        productDTO.setUplaodFileNames(fileNameList);
+        productDTO.setUploadFileNames(fileNameList);
 
         return productDTO;
     }
@@ -135,7 +158,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = Product.builder().pno(productDTO.getPno()).pname(productDTO.getPname()).pdesc(productDTO.getPdesc()).price(productDTO.getPrice()).build();
 
-        List<String> uploadFileNames = productDTO.getUplaodFileNames();
+        List<String> uploadFileNames = productDTO.getUploadFileNames();
 
         if(uploadFileNames == null || uploadFileNames.size() ==0 ) {
             return product;

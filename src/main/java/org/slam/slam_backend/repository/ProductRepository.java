@@ -23,6 +23,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> , Produc
     @Query("update Product p set p.delFlag = :delFlag where p.pno = :pno")
     void updatgeToDelete(@Param("pno") Long pno ,@Param("delFlag") boolean flag);
 
-    @Query("select p, pi from Product p left join p.imageList pi where pi.ord = 0 and p.delFlag = false")
+    @Query("select p, pi  from Product p left join p.imageList pi  where pi.ord = 0 and p.delFlag = false ")
     Page<Object[]> selectList(Pageable pageable);
+
+    @Query("select p, pi  from Product p left join p.imageList pi  where pi.ord = 0 and p.keyword like concat('%', :keyword, '%') and p.delFlag = false ")
+    Page<Object[]> selectList(String keyword, Pageable pageable);
 }
