@@ -100,10 +100,11 @@ public class ProductRepositoryTests {
                 .pdesc("신규 추가 상품입니다.")
                 .price(1000)
                 .build();
-
+        /*
         productDTO.setUplaodFileNames(
                 java.util.List.of(UUID.randomUUID()+"_"+"test1.jpg", UUID.randomUUID()+"_"+"test2.jps")
         );
+         */
 
         productService.register(productDTO);
 

@@ -71,6 +71,8 @@ dependencies {
     // https://mvnrepository.com/artifact/net.coobird/thumbnailator
     implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.19'
 
+    //spring-boot-starter-security : 자동으로 버전 맞춰줌..
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     /*
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
 
