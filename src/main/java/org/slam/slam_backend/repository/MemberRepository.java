@@ -1,5 +1,6 @@
-package org.slam.slam_backend.domain;
+package org.slam.slam_backend.repository;
 
+import org.slam.slam_backend.domain.Member;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

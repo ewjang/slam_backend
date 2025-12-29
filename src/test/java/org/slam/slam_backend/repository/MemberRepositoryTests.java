@@ -3,11 +3,9 @@ package org.slam.slam_backend.repository;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.slam.slam_backend.domain.Member;
-import org.slam.slam_backend.domain.MemberRepository;
 import org.slam.slam_backend.domain.MemberRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestComponent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootTest

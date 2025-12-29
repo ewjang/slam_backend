@@ -1,0 +1,7 @@
+package org.slam.slam_backend.util;
+
+public class CustomJWTException extends RuntimeException{
+    public CustomJWTException(String msg){
+        super(msg);
+    }
+}
