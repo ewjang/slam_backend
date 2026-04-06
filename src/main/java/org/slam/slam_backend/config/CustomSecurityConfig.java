@@ -37,6 +37,8 @@ public class CustomSecurityConfig {
 
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
 
+        http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+
         http.formLogin(config -> {
             config.loginPage("/api/member/login");
             config.successHandler(new ApiLoginSuccessHandler());
@@ -57,7 +59,7 @@ public class CustomSecurityConfig {
 
         configuration.setAllowedOriginPatterns(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","HEAD","OPTIONS"));
-        configuration.setAllowedMethods(Arrays.asList("Authorization","Cache-Control","Content-Type"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization","Cache-Control","Content-Type"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
